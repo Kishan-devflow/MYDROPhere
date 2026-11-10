@@ -80,6 +80,10 @@ Lookup is limited to 20 requests per IP per minute and creation to 10 per minute
 
 Build the client (`npm run build`) and serve `client/dist` from an HTTPS-capable static host. Configure the host to return `index.html` for the client routes (`/send`, `/receive`, `/how-it-works`, `/about`) so direct links and refreshes continue to work. Deploy the Node server on a platform supporting persistent WebSocket connections; configure `CLIENT_URL`, `PORT`, `SESSION_TTL_SECONDS`, `MAX_FILE_BYTES`, and ICE settings. Set `VITE_API_URL` and `VITE_SOCKET_URL` to the public HTTPS/WSS backend before building. Configure TURN for real-world connectivity. MYDROP has not been deployed or verified on a hosting provider.
 
+### Vercel frontend
+
+Import the repository into Vercel using the repository root (`.`) as the Root Directory. The root npm workspace installs the client dependencies during Vercel's normal install step. `vercel.json` configures the client build output at `client/dist` and rewrites client routes to `index.html`. Set `VITE_API_URL` and `VITE_SOCKET_URL` in the Vercel project environment to the deployed API server URL, then redeploy. The Express and Socket.IO server must still be deployed separately on a WebSocket-capable host.
+
 ## Known limitations
 
 - Session and rate-limit state is in-memory and single-instance only.
